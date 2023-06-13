@@ -1,7 +1,7 @@
 package org.example;
 
 import java.lang.reflect.Array;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -64,26 +64,59 @@ public class Main {
 
         // 요리 레시피 메모장 만들기 입력 부분
         Scanner scanner = new Scanner(System.in);
+        System.out.print("저장할 자료구조 선택 [List / Set / Map] : ");
+        String structure = scanner.nextLine();
         System.out.print("제목 : ");
         String title = scanner.nextLine();
         System.out.print("별점 : ");
         double starScore = scanner.nextDouble();
         scanner.nextLine(); // 버퍼 비우기 (enter)
-        System.out.println("-----레시피 내용-----");
-        String[] recipe = new String[10];
-
-        for(int i = 0; i < 10; i++){
-            System.out.print((i+1) + "번 : ");
-            recipe[i] = scanner.nextLine();
-        }
 
         // 요리 레시피 메모장 만들기 출력 부분
-        System.out.println("[ " + title + " ]");
-        int intStarScore = (int)starScore;
-        System.out.println("별점 : " + intStarScore + " (" + ((intStarScore/5.0) * 100) + "%)" );
+        String recipeLine = "";
 
-        for(int i = 0; i < 10; i++){
-            System.out.println((i + 1) + ". " + recipe[i]);
+        if(structure.equals("List")){
+            ArrayList<String> recipe = new ArrayList<>();
+
+            System.out.println("-----List 레시피 작성-----");
+            while(!(recipeLine = scanner.nextLine()).equals("끝")){
+                recipe.add(recipeLine);
+            }
+
+            System.out.println("[ List 로 저장된 " + title + " ]");
+            int index = 1;
+            for(String value : recipe){
+                System.out.println(index++ + ". " + value);
+            }
+        } else if(structure.equals("Set")) {
+            Set<String> recipe = new LinkedHashSet<>();
+
+            System.out.println("-----Set 레시피 작성-----");
+            while(!(recipeLine = scanner.nextLine()).equals("끝")){
+                recipe.add(recipeLine);
+            }
+
+            System.out.println("[ Set 으로 저장된 " + title + " ]");
+
+            Iterator<String> iterator = recipe.iterator();
+
+            for(int i = 1; i <= recipe.size(); i++){
+                System.out.println(i + ". " + iterator.next());
+            }
+
+        } else if(structure.equals("Map")) {
+            Map<Integer, String> recipe = new HashMap<>();
+            int index = 1;
+
+            System.out.println("-----Map 레시피 작성-----");
+            while(!(recipeLine = scanner.nextLine()).equals("끝")){
+                recipe.put(index++, recipeLine);
+            }
+
+            System.out.println("[ Map 으로 저장된 " + title + " ]");
+            for(int i = 1; i <= recipe.size(); i++){
+                System.out.println(i + ". " + recipe.get(i));
+            }
         }
     }
 }
