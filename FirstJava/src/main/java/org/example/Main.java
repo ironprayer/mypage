@@ -3,6 +3,7 @@ package org.example;
 import org.example.week03.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -128,6 +129,9 @@ public class Main {
 //        String[] expression = sc.nextLine().trim().split("");
 
         System.out.println(new Calculator().calculate(expression));
+        String a = "111";
+        List<Integer> q = new ArrayList<>();
+
 //        Double result = new Calculator().calculate(expression);
 //        System.out.println(result);
 
@@ -172,5 +176,11 @@ public class Main {
 //        Double result = calculator.calculate(operand_one, operand_two);
 //
 //        System.out.println(result);
+
+        int[] i = new int[3];
+
+//        List<Integer> array = Arrays.stream(numbers).boxed().collect(Collectors.toList());
+
+
     }
 }

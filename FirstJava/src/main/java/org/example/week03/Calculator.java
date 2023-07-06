@@ -24,7 +24,7 @@ public class Calculator {
                 String preOperator = operators.empty() ? null : operators.pop();
 
                 if(preOperator == null) {
-                    numbers.push(Double.valueOf(number.toString().trim()));
+                    numbers.push(toDouble(number));
                 }
                 else if (preOperator.equals("*") || preOperator.equals("/")){
                     setOperator(preOperator);
