@@ -7,7 +7,6 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-@Builder
 public class PostResponseDTO {
     // 제목, 작성자명, 작성 내용, 작성 날짜
     private String title;

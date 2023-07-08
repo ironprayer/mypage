@@ -1,5 +1,6 @@
 package com.example.test2.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -23,6 +24,10 @@ public class Post {
     private String content;
     @Column
     private LocalDateTime createdAt;
+
+    @JsonIgnore
+    @ManyToOne
+    private User user;
 
     // LocalDateTime 년 월 일 시 분 초 밀리세컨즈
     // LocalDate  년 월 일 0시 0분 0초
