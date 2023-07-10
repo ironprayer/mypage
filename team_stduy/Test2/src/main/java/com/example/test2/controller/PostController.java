@@ -37,6 +37,11 @@ public class PostController {
              result.add(new PostResponseDTO(post));
          }
 
+         // dirthy Checking이 필요하다면 영속성 컨텍스트가 필요하죠. => 1차 캐시에서 그 기능 제공해주고 있어요. (객체명, 객체, DB데이터(스냅샷))
+         // => 영속성 컨텍스트 끝나면서 현재 객체와 스냅샷을 비교해서 달라진게 있으면 업데이트를 날립니다. 이게 dirthy checking이에요.
+         // => transactional이랑 같이 만들어진다고 생각하시면 됩니다.
+
+
          return result;
     }
 
