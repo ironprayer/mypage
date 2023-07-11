@@ -2,6 +2,11 @@ package com.example.test2;
 
 // enum은 관련 있는 상수들을 모아놓는 얘들
 // 클래스와 객체로 풀어낸거에요.
+
+// 상수라고 하는 것은 ADMIN_TOKEN = "DFSFDwerewrwerwerwe" (변하지 않는 값)
+
+// 상수 => 변하지 않는 객체 USER = new USER("ROLE_USER");
+//
 public enum Auth {
     USER("ROLE_USER"), // 사용자 권한
     ADMIN("ROLE_ADMIN"); // 관리자 권한

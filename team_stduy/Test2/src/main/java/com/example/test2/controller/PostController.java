@@ -4,8 +4,7 @@ import com.example.test2.dto.PostResponseDTO;
 import com.example.test2.entity.Post;
 import com.example.test2.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +23,11 @@ public class PostController {
     private final PostRepository postRepository;
 
     @GetMapping("/api/post")
+    public String get(){
+        return "OK";
+    }
+
+    @PostMapping("/api/post")
     // 이 요청으로 들어왔을 경우 수행해야하는 로직을 알려줘야 하죠. => 메서드
     public List<PostResponseDTO> getPost(){
         // 제목, 작성자명, 작성 내용, 작성 날짜 => 객체로 담아서 보내줘야 한다.
@@ -44,6 +48,12 @@ public class PostController {
 
          return result;
     }
+
+    @DeleteMapping("/api/post")
+    public String deletePost(){
+        return "Delete";
+    }
+
 
 
 }
