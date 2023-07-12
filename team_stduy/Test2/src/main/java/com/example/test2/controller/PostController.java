@@ -3,9 +3,12 @@ package com.example.test2.controller;
 import com.example.test2.dto.PostResponseDTO;
 import com.example.test2.entity.Post;
 import com.example.test2.repository.PostRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +26,19 @@ public class PostController {
     private final PostRepository postRepository;
 
     @GetMapping("/api/post")
-    public String get(){
-        return "OK";
+    public void get(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+
+        httpServletResponse.addHeader("Content-Type", "text/plain;charset=UTF-8");
+        // Jacson을 사용해서 DTO-> json 형식으로 변경을 해줘야해요.
+        httpServletResponse.getWriter().write("안녕하세요");
+//        boolean test = true;
+//
+//
+//        if(test){
+//            httpServletResponse.setStatus(400);
+//            throw new IllegalArgumentException("test입니당아아앙아");
+//        }
+//        return "안녕하세요";
     }
 
     @PostMapping("/api/post")
