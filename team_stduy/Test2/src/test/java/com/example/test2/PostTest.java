@@ -32,7 +32,9 @@ public class PostTest {
     @DisplayName("builder Test")
     public void customBuilderTest(){
         PostResponseDTO postResponseDTO =  PostResponseDTO.builder()
-                    .content("1234").title("343").build();
+                .content("오늘 밤 아름다운 별")
+                .title("오늘 밤")
+                .build();
 
         System.out.println(postResponseDTO);
     }
