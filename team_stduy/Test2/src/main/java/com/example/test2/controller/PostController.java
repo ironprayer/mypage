@@ -1,5 +1,6 @@
 package com.example.test2.controller;
 
+import com.example.test2.Age;
 import com.example.test2.dto.PostResponseDTO;
 import com.example.test2.entity.Post;
 import com.example.test2.repository.PostRepository;
@@ -24,6 +25,11 @@ public class PostController {
     // 삭제 : DELETE
     // URL => 대상이 되는 자원
     private final PostRepository postRepository;
+
+    @GetMapping("/ok")
+    public void test(){
+        System.out.println(Age.WOMAN_TWENTY);
+    }
 
     @GetMapping("/api/post")
     public void get(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
