@@ -34,6 +34,10 @@ public class Post {
 
     }
 
+    public void test(){
+
+    }
+
     // LocalDateTime 년 월 일 시 분 초 밀리세컨즈
     // LocalDate  년 월 일 0시 0분 0초
 }
