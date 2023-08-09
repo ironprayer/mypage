@@ -76,4 +76,9 @@ public class PostController {
 
 
 
+
+    // location = LocationRepository.findByGuAndDong(gu, dong) //
+    // location 모든 값이 유니크하며 고정되어있어야 합니다. (데이터 무결성을 보장해주는거니까)
+    // user.location = location; 아이디 값으로만 연관관계를 맺을거니까
+
 }
