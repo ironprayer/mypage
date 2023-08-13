@@ -24,7 +24,6 @@ public class JavaFaker {
         File file = new File("./dummy.csv");
         BufferedWriter writer = null;
 
-
         for(var count =0 ; count < 900000; count++) {
             String title = faker.job().title();
             String content = faker.lorem().sentence(10, 20);
@@ -42,7 +41,7 @@ public class JavaFaker {
                 bidSuccessPrice = (long) (Double.parseDouble(faker.commerce().price(10000, 100000000)));
             }
 
-            String[] words = {title, content, image, price.toString(), bidSuccessPrice.toString(), startTime.toString(), endTime.toString(), auctionStatus.toString(), category.toString(), dealStatus.toString(), userId.toString()};
+            String[] words = {title, content, image, price.toString(), bidSuccessPrice.toString(), startTime.toString(), endTime.toString(), auctionStatus.toString(), category.toString(), dealStatus.toString(), userId.toString(), startTime.minusSeconds(3600).toString(), startTime.minusSeconds(3600).toString()};
             for (int i = 0; i < words.length; i++) {
                 words[i] = '"' + words[i] + '"';
             }
