@@ -4,6 +4,7 @@ import com.idea_rush.performance_data_generator.entity.Idea;
 import com.idea_rush.performance_data_generator.type.DeleteData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,6 +13,6 @@ import java.util.List;
 public interface IdeaRepository extends JpaRepository<Idea, Long> {
 
 
-    @Query("select i from Idea i order by random() limit 3000")
+    @Query("select i from Idea i order by random() limit 4000 ")
     List<Idea> findThreeThousand();
 }
