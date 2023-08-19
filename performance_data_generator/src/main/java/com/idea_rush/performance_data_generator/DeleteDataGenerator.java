@@ -28,17 +28,16 @@ public class DeleteDataGenerator {
 
     @PostConstruct
     public void generateDeleteData() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
-//        List<Idea> ideas = ideaRepository.findThreeThousand();
-//        List<DeleteData> deleteDatas = ideas.stream().map(idea -> new DeleteData(idea.getId(), jwtUtils.generateToken(idea.getUser_id()))).toList();
+        List<Idea> ideas = ideaRepository.findThreeThousand();
+        List<DeleteData> deleteDatas = ideas.stream().map(idea -> new DeleteData(idea.getId(), jwtUtils.generateToken(idea.getUser_id()))).toList();
 
         List<Users> users = userRepository.findRandomLimit();
-        File file = new File("/Users/ironprayer/user_token_20000.csv");
+        File file = new File("/Users/ironprayer/post_jwt_10000.csv");
         BufferedWriter writer = null;
         Set<Long> a = new HashSet<>();
 
-        for(var data : users) {
-            String line = "\"" + jwtUtils.generateToken(data.getId()) + "\"";
-            a.add(data.getId());
+        for(var data : deleteDatas) {
+            String line = "\"" + data.postId()  + "\"," + "\"" + data.jwt() + "\"";
 
             try {
                 FileWriter fw = new FileWriter(file, true);

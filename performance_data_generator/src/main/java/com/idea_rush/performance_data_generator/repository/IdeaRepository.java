@@ -13,6 +13,6 @@ import java.util.List;
 public interface IdeaRepository extends JpaRepository<Idea, Long> {
 
 
-    @Query("select i from Idea i order by random() limit 4000 ")
+    @Query("select i from Idea i order by random() limit 10000 ")
     List<Idea> findThreeThousand();
 }
