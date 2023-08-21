@@ -1,0 +1,72 @@
+import com.launchdarkly.eventsource.EventSource
+import com.launchdarkly.eventsource.EventHandler
+import com.launchdarkly.eventsource.MessageEvent
+import java.net.URI
+import java.io.StringReader
+import java.util.concurrent.TimeUnit
+import java.time.Duration;
+import java.time.LocalTime;
+import javax.json.Json
+import javax.json.JsonObject
+import javax.json.JsonReader
+import javax.json.JsonValue
+
+class SimpleEventHandler implements EventHandler {
+    List<String> respList = []
+
+    void onOpen() {
+    	   System.out.println("열렸당")
+    }
+
+    void onClosed() {
+    	   System.out.println("닫혔당")
+    }
+
+    void onMessage(String Event, MessageEvent messageEvent) throws java.lang.Exception {
+        if (Event.equals("BID_PRICE_UPDATE")) {
+            respList.add(messageEvent.getData())
+            if(messageEvent.getData() == "") {
+            	System.out.println("테스트합니다 비어있어")
+            }
+            if(messageEvent.getData() == null) {
+            	System.out.println("NUll 비어있어")
+            }
+        }
+    }
+
+    void onComment(String comment) {
+        System.out.println("comment : " + comment)
+    }
+
+    void onError(Throwable t) {
+    	   System.out.println("ERRRORR")
+    }
+}
+
+EventHandler eH = new SimpleEventHandler()
+String responseList = ""
+
+String[] parameters = Parameters.split(",")
+String uri = parameters[0]  
+long reconnectionTimeMs = parameters[1].toLong()
+long sleepDuration = parameters[2].toLong()
+
+EventSource.Builder builder = new EventSource.Builder(eH, URI.create(uri))
+EventSource eventSource = builder.readTimeout(sleepDuration, TimeUnit.SECONDS).build()
+eventSource.setReconnectTimeMillis(reconnectionTimeMs)
+
+try {
+     eventSource.start()
+     TimeUnit.SECONDS.sleep(sleepDuration)
+     
+} catch(Exception e) {
+	eventSource.close()
+} finally {
+	eventSource.close()
+}
+
+for (String respRecord : eH.respList) {
+    responseList = responseList + "Updated Bid Price: ${respRecord}\n"
+}
+
+SampleResult.setResponseData(responseList, "866")
