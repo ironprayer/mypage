@@ -15,16 +15,16 @@ public class JavaFakerPrepare {
     public static void main(String[] args) throws IOException {
         Random random = new Random();
         Faker faker = new Faker(Locale.ENGLISH);
-        File file = new File("./dummy_prepare.csv");
+        File file = new File("/Users/ironprayer/dummy_prepare_400000.csv");
         BufferedWriter writer = null;
 
-        for(var count =0 ; count < 100000; count++) {
+        for(var count =0 ; count < 400000; count++) {
             String title = faker.job().title();
             String content = faker.lorem().sentence(10, 20);
             String image = faker.internet().image();
             Long price = (long) (Double.parseDouble(faker.commerce().price(1000, 1000000)));
             Long bidSuccessPrice = 0L;
-            Instant startTime = faker.date().between(Date.valueOf("2023-08-12"), Date.valueOf("2023-09-12")).toInstant();
+            Instant startTime = faker.date().between(Date.valueOf("2023-08-25"), Date.valueOf("2023-09-30")).toInstant();
             Instant endTime = startTime.plusSeconds(600);
             String auctionStatus = "PREPARE";
             String category = (Category.values())[random.nextInt(5)].toString();

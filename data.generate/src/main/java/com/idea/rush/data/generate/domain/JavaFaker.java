@@ -21,16 +21,16 @@ public class JavaFaker {
     public static void main(String[] args) throws IOException {
         Random random = new Random();
         Faker faker = new Faker(Locale.ENGLISH);
-        File file = new File("./dummy.csv");
+        File file = new File("/Users/ironprayer/dummy_3600000.csv");
         BufferedWriter writer = null;
 
-        for(var count =0 ; count < 900000; count++) {
+        for(var count =0 ; count < 3600000; count++) {
             String title = faker.job().title();
             String content = faker.lorem().sentence(10, 20);
             String image = faker.internet().image();
             Long price = (long) (Double.parseDouble(faker.commerce().price(1000, 1000000)));
             Long bidSuccessPrice = 0L;
-            Instant startTime = faker.date().between(Date.valueOf("2023-07-20"), Date.valueOf("2023-08-10")).toInstant();
+            Instant startTime = faker.date().between(Date.valueOf("2022-07-20"), Date.valueOf("2023-08-23")).toInstant();
             Instant endTime = startTime.plusSeconds(600);
             String auctionStatus = "END";
             String category = (Category.values())[random.nextInt(5)].toString();
@@ -38,7 +38,7 @@ public class JavaFaker {
             Long userId = random.nextLong(100000) + 1;
 
             if(dealStatus.equals(DealStatus.BID_WIN.toString())){
-                bidSuccessPrice = (long) (Double.parseDouble(faker.commerce().price(10000, 100000000)));
+                bidSuccessPrice = (long) (Double.parseDouble(faker.commerce().price(1100000, 100000000)));
             }
 
             String[] words = {title, content, image, price.toString(), bidSuccessPrice.toString(), startTime.toString(), endTime.toString(), auctionStatus.toString(), category.toString(), dealStatus.toString(), userId.toString(), startTime.minusSeconds(3600).toString(), startTime.minusSeconds(3600).toString()};
