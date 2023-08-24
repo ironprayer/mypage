@@ -10,27 +10,23 @@ import javax.json.Json
 import javax.json.JsonObject
 import javax.json.JsonReader
 import javax.json.JsonValue
+import java.util.concurrent.ConcurrentHashMap
 
 class SimpleEventHandler implements EventHandler {
     List<String> respList = []
+    String errorMessage = null
+    int count = 0;
 
-    void onOpen() {
-    	   System.out.println("열렸당")
-    }
+    void onOpen() {}
 
-    void onClosed() {
-    	   System.out.println("닫혔당")
-    }
+    void onClosed() {}
 
     void onMessage(String Event, MessageEvent messageEvent) throws java.lang.Exception {
         if (Event.equals("BID_PRICE_UPDATE")) {
-            respList.add(messageEvent.getData())
-            if(messageEvent.getData() == "") {
-            	System.out.println("테스트합니다 비어있어")
-            }
-            if(messageEvent.getData() == null) {
-            	System.out.println("NUll 비어있어")
-            }
+        	  count = count + 1
+            respList.add(messageEvent.getLastEventId() + ": " + messageEvent.getData())
+        } else {
+        	  respList.add("init message : " + messageEvent.getData() + "\n")
         }
     }
 
@@ -39,8 +35,11 @@ class SimpleEventHandler implements EventHandler {
     }
 
     void onError(Throwable t) {
-    	   System.out.println("ERRRORR")
+    	    int threadNum = Thread.currentThread().getId();
+    	    errorMessage = t.getMessage();
     }
+
+
 }
 
 EventHandler eH = new SimpleEventHandler()
@@ -52,21 +51,28 @@ long reconnectionTimeMs = parameters[1].toLong()
 long sleepDuration = parameters[2].toLong()
 
 EventSource.Builder builder = new EventSource.Builder(eH, URI.create(uri))
-EventSource eventSource = builder.readTimeout(sleepDuration, TimeUnit.SECONDS).build()
+EventSource eventSource = builder.readTimeout(sleepDuration + 10, TimeUnit.SECONDS).build()
 eventSource.setReconnectTimeMillis(reconnectionTimeMs)
 
 try {
      eventSource.start()
      TimeUnit.SECONDS.sleep(sleepDuration)
-     
+
 } catch(Exception e) {
 	eventSource.close()
 } finally {
 	eventSource.close()
 }
 
+responseList = responseList + "amount : " + eH.count + "\n"
+responseList = responseList + "erro message : " + eH.errorMessage + "\n" 
 for (String respRecord : eH.respList) {
-    responseList = responseList + "Updated Bid Price: ${respRecord}\n"
+    responseList = responseList + "${respRecord}\n"
 }
 
 SampleResult.setResponseData(responseList, "866")
+
+
+if(eH.errorMessage != null) {
+	SampleResult.setSuccessful(false);
+}
