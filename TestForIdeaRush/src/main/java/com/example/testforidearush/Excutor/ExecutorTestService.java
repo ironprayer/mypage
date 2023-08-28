@@ -7,6 +7,7 @@ import java.util.concurrent.*;
 @Service
 public class ExecutorTestService {
 
+    // newSingleThreadExecutor()로 생성되는 BlockingQueue의 크기는 Integer.MAX(0x7fffffff) 이다
     private final static ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public void test() {
