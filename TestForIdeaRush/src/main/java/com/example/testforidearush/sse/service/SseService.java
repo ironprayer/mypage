@@ -53,10 +53,14 @@ public class SseService {
     // 어디에서 문제가 생기는 것인지 확인이 필요함.
     // Kafka에서 데이터를 전달 받는 부분은 문제가 없어 보이니 이 부분이 문제인 것 같음.
     public void send(SseConnect type, SseEvent event, Long id, Object data) {
+        System.out.println("현재 처리 개수 : " + count);
+        long point_one = System.currentTimeMillis();
         ConcurrentLinkedDeque<CustomSseEmitter> currentEmitters = type == SseConnect.NOTIFICATION ? noticeEmitters : bidEmitters;
+        long point_two = System.currentTimeMillis();
         List<CustomSseEmitter> sendEmitters = currentEmitters.stream()
                 .filter((customSseEmitter) -> id.equals(customSseEmitter.id())).toList();
 
+        long point_three = System.currentTimeMillis();
         for(CustomSseEmitter sendEmitter : sendEmitters) {
             try {
                 sendEmitter.sseEmitter()
@@ -68,6 +72,10 @@ public class SseService {
                 currentEmitters.remove(sendEmitter);
             }
         }
-    }
+        long point_four = System.currentTimeMillis();
 
+        System.out.println("emitter collection select : " + (point_two - point_one)
+                + "send emitter select : " + (point_three - point_two)
+                + "send event : " + (point_four - point_three));
+    }
 }
