@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class KafkaService {
-    private final KafkaTemplate<String, String> kafkaTemplate;
-
-    public void sendMessage(String msg) {
-        kafkaTemplate.send("order", msg);
-    }
+//    private final KafkaTemplate<String, String> kafkaTemplate;
+//
+//    public void sendMessage(String msg) {
+//        kafkaTemplate.send("order", msg);
+//    }
 }

@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class KafkaController {
-    private final KafkaService kafkaService;
-
-    @GetMapping("/test/kafka")
-    void test(
-            @RequestParam(name="msg") String msg
-    ){
-        kafkaService.sendMessage(msg);
-    }
+//    private final KafkaService kafkaService;
+//
+//    @GetMapping("/test/kafka")
+//    void test(
+//            @RequestParam(name="msg") String msg
+//    ){
+//        kafkaService.sendMessage(msg);
+//    }
 }
